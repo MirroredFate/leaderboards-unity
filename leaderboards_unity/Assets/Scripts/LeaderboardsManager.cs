@@ -31,6 +31,17 @@ public class LeaderboardsManager : MonoBehaviour
 
     public void AddDataToList(EntryData data)
     {
+        if (_entryDataList.Count > 0)
+        {
+            for (int i = 0; i < _entryDataList.Count; i++)
+            {
+                if (data.EntryName == _entryDataList[i].EntryName)
+                {
+                    return;
+                }
+            }
+        }
+        
         _entryDataList.Add(data);
     }
 
