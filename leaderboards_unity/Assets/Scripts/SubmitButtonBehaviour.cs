@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +7,9 @@ public class SubmitButtonBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject entryPrefab;
     [SerializeField] private GameObject parentEntryObject;
+
+    [SerializeField] private TMP_InputField nameInput;
+    [SerializeField] private TMP_InputField scoreInput;
 
     private Button _submitButton;
     private void Awake()
@@ -16,13 +21,25 @@ public class SubmitButtonBehaviour : MonoBehaviour
 
     private void AddEntry()
     {
-        //Creates Leaderboards-Entry-Object
-        var entry = Instantiate(entryPrefab, parentEntryObject.transform, true);
+        DeleteEntryObjects();
         
-        //Hide entry and fill with data of the input fields
-        entry.gameObject.SetActive(false);
+        var data = new EntryData
+        {
+            EntryName = nameInput.text,
+            Score = Convert.ToInt32(scoreInput.text)
+        };
+
+        LeaderboardsManager.Instance.AddDataToList(data);
         
         
-        
+        LeaderboardsManager.Instance.GenerateEntries(entryPrefab, parentEntryObject.transform);
+    }
+
+    private void DeleteEntryObjects()
+    {
+        foreach (Transform child in parentEntryObject.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 }
