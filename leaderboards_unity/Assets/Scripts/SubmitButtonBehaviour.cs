@@ -21,6 +21,9 @@ public class SubmitButtonBehaviour : MonoBehaviour
 
     private void AddEntry()
     {
+        if (nameInput.text == "" || scoreInput.text == "") return;
+        if(Convert.ToInt32(scoreInput.text) >= Int32.MaxValue || Convert.ToInt32(scoreInput.text) <= Int32.MinValue) return; //Maybe Score too high error message?
+
         DeleteEntryObjects();
         
         var data = new EntryData
