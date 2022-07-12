@@ -25,7 +25,7 @@ public class SubmitButtonBehaviour : MonoBehaviour
         if(Convert.ToInt32(scoreInput.text) >= Int32.MaxValue || Convert.ToInt32(scoreInput.text) <= Int32.MinValue) return; //Maybe Score too high error message?
 
         DeleteEntryObjects();
-        
+
         var data = new EntryData
         {
             EntryName = nameInput.text,
@@ -33,7 +33,7 @@ public class SubmitButtonBehaviour : MonoBehaviour
         };
 
         LeaderboardsManager.Instance.AddDataToList(data);
-        
+        SaveSystem.Save();
         
         LeaderboardsManager.Instance.GenerateEntries(entryPrefab, parentEntryObject.transform);
     }

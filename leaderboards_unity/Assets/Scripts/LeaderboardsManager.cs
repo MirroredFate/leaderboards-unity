@@ -35,8 +35,7 @@ public class LeaderboardsManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        
-        _entryDataList = new List<EntryData>();
+        LoadSaveData();
     }
     
 
@@ -88,7 +87,6 @@ public class LeaderboardsManager : MonoBehaviour
         {
             yourEntryObject.gameObject.SetActive(true);
         }
-
     }
 
     public void OverwriteEntry()
@@ -113,5 +111,31 @@ public class LeaderboardsManager : MonoBehaviour
             _yourData = newData;
             GenerateEntries(entryPrefab, parentEntryObject.transform);
         }
+    }
+
+    public List<EntryData> GetEntryList()
+    {
+        return _entryDataList;
+    }
+    
+
+    private void LoadSaveData()
+    {
+        var data = SaveSystem.Load();
+        
+        _entryDataList = new List<EntryData>();
+
+        if (data == null) return;
+        for (var i = 0; i < data.entryAmount; i++)
+        {
+            var entryData = new EntryData
+            {
+                Score = data.entryScores[i],
+                EntryName = data.entryNames[i]
+            };
+
+            _entryDataList.Add(entryData);
+        }
+        GenerateEntries(entryPrefab, parentEntryObject.transform);
     }
 }
