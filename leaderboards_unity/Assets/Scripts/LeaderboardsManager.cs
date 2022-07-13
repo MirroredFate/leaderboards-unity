@@ -29,12 +29,14 @@ public class LeaderboardsManager : MonoBehaviour
     [SerializeField] private TMP_InputField scoreInput;
     [SerializeField] private GameObject entryPrefab;
     [SerializeField] private GameObject parentEntryObject;
+    [SerializeField] private GameObject crownImage;
 
     private EntryData _yourData;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        crownImage.SetActive(false);
         LoadSaveData();
     }
     
@@ -60,6 +62,7 @@ public class LeaderboardsManager : MonoBehaviour
     public void GenerateEntries(GameObject entryPrefab, Transform parent)
     {
         _entryDataList.Sort((p1,p2) => p2.Score.CompareTo(p1.Score));
+        crownImage.SetActive(true);
 
         for (var i = 0; i < _entryDataList.Count; i++)
         {
