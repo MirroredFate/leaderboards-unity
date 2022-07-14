@@ -29,14 +29,12 @@ public class LeaderboardsManager : MonoBehaviour
     [SerializeField] private TMP_InputField scoreInput;
     [SerializeField] private GameObject entryPrefab;
     [SerializeField] private GameObject parentEntryObject;
-    [SerializeField] private GameObject crownImage;
 
     private EntryData _yourData;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        crownImage.SetActive(false);
         LoadSaveData();
     }
     
@@ -62,7 +60,6 @@ public class LeaderboardsManager : MonoBehaviour
     public void GenerateEntries(GameObject entryPrefab, Transform parent)
     {
         _entryDataList.Sort((p1,p2) => p2.Score.CompareTo(p1.Score));
-        crownImage.SetActive(true);
 
         for (var i = 0; i < _entryDataList.Count; i++)
         {
@@ -72,6 +69,15 @@ public class LeaderboardsManager : MonoBehaviour
             entry.GetComponent<Entry>().SetName(_entryDataList[i].EntryName);
             entry.GetComponent<Entry>().SetScore(_entryDataList[i].Score);
             entry.GetComponent<Entry>().SetPosition(i+1);
+
+            if (i + 1 == 1)
+            {
+                entry.GetComponent<Entry>().ShowCrown(true);
+            }
+            else
+            {
+                entry.GetComponent<Entry>().ShowCrown(false);
+            }
 
             entry.gameObject.SetActive(true);
 

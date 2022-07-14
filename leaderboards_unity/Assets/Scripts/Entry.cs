@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Entry : MonoBehaviour
 {
@@ -9,6 +10,12 @@ public class Entry : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI positionText;
+    [SerializeField] private Image crownImage;
+
+    private void Awake()
+    {
+        crownImage.gameObject.SetActive(false);
+    }
 
     public void SetName(string name)
     {
@@ -29,5 +36,11 @@ public class Entry : MonoBehaviour
         _data.Position = entryPosition;
         
         positionText.SetText(_data.Position.ToString());
+    }
+    
+
+    public void ShowCrown(bool showState)
+    {
+        crownImage.gameObject.SetActive(showState);
     }
 }
