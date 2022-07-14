@@ -96,6 +96,11 @@ public class LeaderboardsManager : MonoBehaviour
         {
             yourEntryObject.gameObject.SetActive(true);
         }
+        else
+        {
+            yourEntryObject.gameObject.SetActive(false);
+        }
+        
     }
 
     public void OverwriteEntry()
